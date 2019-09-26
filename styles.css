@@ -1,0 +1,55 @@
+body{
+    background: hsl(253, 70%, 45%);
+    letter-spacing: 0.2em;
+    font-size: 0.8em;
+    color: white;
+}
+
+.container{
+    color: white;
+}
+
+.button {
+    display: inline-block;
+    width: 150px;
+    cursor: pointer;
+    
+}
+
+#custom-button, #custom-button2, #select-a-file-custom-button {
+    padding: 10px;
+    color: white;
+    background-color: #009578;
+    border: 1.5px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: Georgia;
+    letter-spacing: 1px;
+}
+
+#hash-button, #grey-button, #grey-button2, #grey-button3 {
+    padding: 10px;
+    color: white;
+    background-color: #7e7e7e;
+    border: 1.5px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: Georgia;
+    letter-spacing: 1px;
+}
+
+#custom-button:hover{
+    background-color: #00b28f;
+}
+
+#custom-text, #custom-text1 {
+    margin-left: 10px;
+    font-family: Georgia;
+    color: white;
+}
+
+#or {
+    font-family: Georgia;
+    font-size: 25px;
+}
+

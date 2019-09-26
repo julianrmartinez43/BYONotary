@@ -1,0 +1,24 @@
+{
+  "name": "byonotary",
+  "version": "1.0.0",
+  "description": "Beeing yo own notary dawg",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "ganache-cli": "^6.6.0",
+    "requirejs": "^2.3.6",
+    "web3": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm install web3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "cd"
+  },
+  "author": "",
+  "license": "ISC"
+}

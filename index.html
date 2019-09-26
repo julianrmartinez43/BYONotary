@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <title>BYONotary</title>
+</head>
+<body style="font-family: Times">
+
+  <div class="container my-5 mx-auto">
+
+    <h1 class="text-center my-4">
+      <span style="font-family: Georgia">BYONotary!</span>
+    </h1>
+ 
+  </div>
+  <div class="text-center">
+    <div style="padding-bottom: 15px">
+      <input type="file" id="input-file" hidden="hidden">
+      <button type="button" id="select-a-file-custom-button">SELECT A FILE</button>
+      <span id="custom-text">No file chosen yet!</span>
+    </div>
+    <div style="padding-bottom: 40px">
+      <button type="button" id="hash-button">HASH YOUR FILE</button>
+      <span id="custom-text1">Upload your file first!</span>
+    </div>
+    <div style="padding: 10px">
+      <button type="button" id="grey-button2">STORE THE HASH ON ETHEREUM</button>
+    </div>
+    <div id="or">
+      <span>OR</span>
+    </div>
+    <div style="padding: 10px">
+      <button type="button" id="grey-button3">VERIFY POSSESSION</button>
+    </div>
+  </div>
+  <!-- <script data-main="app" src="node_modules/requirejs/require.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+  <script src="helper.js"></script>  
+</body>
+</html>
