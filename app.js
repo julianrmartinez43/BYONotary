@@ -4,11 +4,11 @@ const hashBtn = document.getElementById('hash-button');
 const customTxt = document.getElementById('custom-text');
 const hashBtnTxt = document.getElementById('custom-text1');
 const storeBtn = document.getElementById('grey-button2');
+const storeHashDiv = document.getElementById('store-hash-div')
 const verifyBtn = document.getElementById('grey-button3');
 
 
-// set up web3 provider and contract instance
-abi = [
+let abi = [
 	{
 		"constant": false,
 		"inputs": [
@@ -143,19 +143,34 @@ abi = [
 	}
 ]
 
-window.addEventListener('load', async () => {
-    if (typeof web3 !== 'undefined') {
-		web3 = new Web3(web3.currentProvider);
-		// await window.ethereum.enable();
-        console.log('MetaMask Success');
-    } else {
-        console.log('No web3? You should consider trying MetaMask!');
-        web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
-    }
-});
+let contractInstance;
 
-web3.eth.defaultAccount = web3.eth.accounts.givenProvider.selectedAddress;
-let contractInstance = new web3.eth.Contract(abi, '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834'); // Ganache contract address ''0x15013d783fadAaA9e9d2F0e8d71C575f81a39834''
+window.addEventListener('load', async () => {
+	// Modern dapp browsers...
+	if (window.ethereum) {
+	  window.web3 = new Web3(ethereum);
+	  try {
+		await ethereum.enable();
+		web3.eth.defaultAccount = web3.eth.accounts.givenProvider.selectedAddress;
+        contractInstance = new web3.eth.Contract(abi, '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834');
+		// Acccounts now exposed
+	  } catch (error) {
+		// User denied account access...
+		console.log(error);
+	  }
+	}
+	// Legacy dapp browsers...
+	else if (window.web3) {
+	  window.web3 = new Web3(web3.currentProvider);
+	   // Ganache contract address '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834'
+	}
+	// Non-dapp browsers...
+	else {
+	  console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+	}
+  });
+
+// set up web3 provider and contract instance
 
 
 // Step 1: Load file
@@ -194,6 +209,8 @@ hashBtn.addEventListener('click', () => {
 
 // Option 1: Store Hash on Ethereum
 
+let span;
+
 storeBtn.addEventListener('click', async () => {
 	verifyBtn.hidden = true;
     document.getElementById('or').hidden = true;
@@ -201,7 +218,13 @@ storeBtn.addEventListener('click', async () => {
 	contractInstance.methods.notarize(item1).send({from: web3.eth.defaultAccount})
         .once('receipt', receipt => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
-                console.log('Notarization successful') // include function that changes time to good UX
+				span = document.createElement('SPAN')
+				span.innerText = `Verification Successful`
+				storeHashDiv.appendChild(span)
+				// storeHashDiv.appendChild(`
+				// 	<span> Verification was successful. This owner of this address submitted this hash at this ${receipt.events.verificationSuccess.returnValues.timestamp} </span>
+				// `)
+				console.log('yeet')
             } else {
                 console.log('Something went wrong')
             }
@@ -216,8 +239,8 @@ verifyBtn.addEventListener('click', async () => {
 		.send({from: web3.eth.defaultAccount})
         .once('receipt', receipt => {
             if (receipt.events.verificationSuccess.returnValues.success) {
-                console.log('Verification was successful. This owner of this address submitted this hash at this time', receipt.events.verificationSuccess.returnValues.timestamp)
-            } else {
+				console.log('verification successful');
+			} else {
                 console.log('Something went wrong')
             }
             //data = receipt; console.log(data)});
