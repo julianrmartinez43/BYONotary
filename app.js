@@ -181,7 +181,8 @@ selectFileBtnCtm.addEventListener("click", () => {
 selectFileBtn.addEventListener('change', e => {
     
     selectFileBtnCtm.innerHTML = "FILE LOADED"
-    customTxt.innerHTML = e.target.value;
+	
+	customTxt.innerHTML = e.target.value;
     hashBtnTxt.innerHTML = "Ready to hash!"; 
     hashBtn.id = 'custom-button';
 
@@ -220,10 +221,8 @@ storeBtn.addEventListener('click', async () => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
 				span = document.createElement('SPAN')
 				span.innerText = `Verification Successful`
-				storeHashDiv.appendChild(span)
-				// storeHashDiv.appendChild(`
-				// 	<span> Verification was successful. This owner of this address submitted this hash at this ${receipt.events.verificationSuccess.returnValues.timestamp} </span>
-				// `)
+				storeHashDiv.insertAdjacentElement('afterend', span);
+
 				console.log('yeet')
             } else {
                 console.log('Something went wrong')
