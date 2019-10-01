@@ -211,6 +211,7 @@ hashBtn.addEventListener('click', () => {
 // Option 1: Store Hash on Ethereum
 
 let span;
+let details;
 
 storeBtn.addEventListener('click', async () => {
 	verifyBtn.hidden = true;
@@ -220,8 +221,14 @@ storeBtn.addEventListener('click', async () => {
         .once('receipt', receipt => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
 				span = document.createElement('SPAN')
-				span.innerText = `Verification Successful`
+				details = document.createElement('SPAN')
+				span.innerText = "Notarization Successful! <br> You can verify this notarization in the future by refreshing this page and using the 'Verify Possession' button.`" 
 				storeHashDiv.insertAdjacentElement('afterend', span);
+				details = document.createElement('SPAN')
+				details.innerText = `You can verify this notarization in the future by refreshing this page and using the 'Verify Possession' button.`
+				span.insertAdjacentElement('afterend', details)
+
+				
 
 				console.log('yeet')
             } else {
