@@ -1,7 +1,11 @@
  pragma solidity ^0.5.4;
 
-// This contract allows users to notarize data without the need of a third party.
-// It allows you to be your own notary (BYONotary)
+// Disclaimer!!
+// This code has not received an audit by security professionals; therefore it is not ready to use.
+
+// Purpose of BYONotary
+    // This contract allows users to notarize data without a third party.
+    // It allows you to be your own notary (BYONotary).
 
 contract BYONotary {
     
