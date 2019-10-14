@@ -152,7 +152,7 @@ window.addEventListener('load', async () => {
 	  try {
 		await ethereum.enable();
 		web3.eth.defaultAccount = web3.eth.accounts.givenProvider.selectedAddress;
-        contractInstance = new web3.eth.Contract(abi, '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834');
+        contractInstance = new web3.eth.Contract(abi, '0x203383270fc3983643bd2582f6a1ccf1e0726c69');
 		// Acccounts now exposed
 	  } catch (error) {
 		// User denied account access...
@@ -162,7 +162,7 @@ window.addEventListener('load', async () => {
 	// Legacy dapp browsers...
 	else if (window.web3) {
 	  window.web3 = new Web3(web3.currentProvider);
-	   // Ganache contract address '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834'
+	   // Ganache contract address '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834' //  ropsten = '0x203383270fc3983643bd2582f6a1ccf1e0726c69'
 	}
 	// Non-dapp browsers...
 	else {
@@ -216,7 +216,8 @@ storeBtn.addEventListener('click', async () => {
 	verifyBtn.hidden = true;
     document.getElementById('or').hidden = true;
 	console.log(hashBtnTxt.innerText);
-	contractInstance.methods.notarize(item1).send({from: web3.eth.defaultAccount})
+	contractInstance.methods.notarize(hashBtnTxt.innerText)
+		.send({from: web3.eth.defaultAccount})
         .once('receipt', receipt => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
 				span = document.createElement('SPAN')
