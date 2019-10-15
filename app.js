@@ -6,7 +6,7 @@ const hashBtnTxt = document.getElementById('custom-text1');
 const storeBtn = document.getElementById('grey-button2');
 const storeHashDiv = document.getElementById('store-hash-div')
 const verifyBtn = document.getElementById('grey-button3');
-
+const verifyDiv = document.getElementById('verify-hash-div')
 
 let abi = [
 	{
@@ -208,7 +208,7 @@ hashBtn.addEventListener('click', () => {
 
 }); 
 
-// Option 1: Store Hash on Ethereum
+// Step 3 - Option 1: Store Hash on Ethereum
 
 let span;
 
@@ -221,27 +221,42 @@ storeBtn.addEventListener('click', async () => {
         .once('receipt', receipt => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
 				span = document.createElement('SPAN')
-				span.innerText = `Verification Successful`
-				storeHashDiv.insertAdjacentElement('afterend', span);
+				span.id = "storeorverifyresults"
+				span.innerText = `Notarization Successful!`
+				verifyBtn.insertAdjacentElement('afterend', span);
 
 				console.log('yeet')
             } else {
-                console.log('Something went wrong')
+                span = document.createElement('SPAN')
+				span.id = "storeorverifyresults"
+				span.innerText = `Something went wrong.`
+				verifyBtn.insertAdjacentElement('afterend', span);
             }
         })
 });
 
-// Option 2: Verify Possession
+// Step 3 - Option 2: Verify Possession
 
 
 verifyBtn.addEventListener('click', async () => {
-	contractInstance.methods.verifyPossession(hash)
+	storeBtn.hidden = true;
+	document.getElementById('or').hidden = true;
+	contractInstance.methods.verifyPossession(hashBtnTxt.innerText)
 		.send({from: web3.eth.defaultAccount})
         .once('receipt', receipt => {
             if (receipt.events.verificationSuccess.returnValues.success) {
-				console.log('verification successful');
+				span = document.createElement('SPAN')
+				span.id = "storeorverifyresults"
+				span.innerText = `Verification Successful!`
+				verifyDiv.insertAdjacentElement('afterend', span);
+				console.log('Verification successful');
+
 			} else {
-                console.log('Something went wrong')
+				span = document.createElement('SPAN');
+				span.id = "storeorverifyresults";
+				span.innerText = `Something went wrong.`;
+				verifyDiv.insertAdjacentElement('afterend', span);
+                console.log('Something went wrong');
             }
             //data = receipt; console.log(data)});
         })
