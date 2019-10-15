@@ -222,24 +222,16 @@ storeBtn.addEventListener('click', async () => {
         .once('receipt', receipt => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
 				span = document.createElement('SPAN')
-				details = document.createElement('SPAN')
-				span.innerText = "Notarization Successful! <br> You can verify this notarization in the future by refreshing this page and using the 'Verify Possession' button.`" 
-				storeHashDiv.insertAdjacentElement('afterend', span);
-				details = document.createElement('SPAN')
-				details.innerText = `You can verify this notarization in the future by refreshing this page and using the 'Verify Possession' button.`
-				span.insertAdjacentElement('afterend', details)
-
-				
 				span.id = "storeorverifyresults"
 				span.innerText = `Notarization Successful!`
-				verifyBtn.insertAdjacentElement('afterend', span);
+				storeHashDiv.insertAdjacentElement('afterend', span);
 
 				console.log('yeet')
             } else {
                 span = document.createElement('SPAN')
 				span.id = "storeorverifyresults"
 				span.innerText = `Something went wrong.`
-				verifyBtn.insertAdjacentElement('afterend', span);
+				storeHashDiv.insertAdjacentElement('afterend', span);
             }
         })
 });

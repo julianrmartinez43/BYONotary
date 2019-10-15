@@ -16,6 +16,13 @@ body{
     
 }
 
+#storeorverifyresults {
+    position: relative;
+    top: 18;
+    font-size: 20;
+
+}
+
 #custom-button, #custom-button2, #select-a-file-custom-button {
     padding: 10px;
     color: white;
