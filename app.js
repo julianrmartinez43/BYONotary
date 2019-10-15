@@ -6,7 +6,7 @@ const hashBtnTxt = document.getElementById('custom-text1');
 const storeBtn = document.getElementById('grey-button2');
 const storeHashDiv = document.getElementById('store-hash-div')
 const verifyBtn = document.getElementById('grey-button3');
-
+const verifyDiv = document.getElementById('verify-hash-div')
 
 let abi = [
 	{
@@ -152,7 +152,7 @@ window.addEventListener('load', async () => {
 	  try {
 		await ethereum.enable();
 		web3.eth.defaultAccount = web3.eth.accounts.givenProvider.selectedAddress;
-        contractInstance = new web3.eth.Contract(abi, '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834');
+        contractInstance = new web3.eth.Contract(abi, '0x203383270fc3983643bd2582f6a1ccf1e0726c69');
 		// Acccounts now exposed
 	  } catch (error) {
 		// User denied account access...
@@ -162,7 +162,7 @@ window.addEventListener('load', async () => {
 	// Legacy dapp browsers...
 	else if (window.web3) {
 	  window.web3 = new Web3(web3.currentProvider);
-	   // Ganache contract address '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834'
+	   // Ganache contract address '0x15013d783fadAaA9e9d2F0e8d71C575f81a39834' //  ropsten = '0x203383270fc3983643bd2582f6a1ccf1e0726c69'
 	}
 	// Non-dapp browsers...
 	else {
@@ -208,7 +208,7 @@ hashBtn.addEventListener('click', () => {
 
 }); 
 
-// Option 1: Store Hash on Ethereum
+// Step 3 - Option 1: Store Hash on Ethereum
 
 let span;
 let details;
@@ -217,7 +217,8 @@ storeBtn.addEventListener('click', async () => {
 	verifyBtn.hidden = true;
     document.getElementById('or').hidden = true;
 	console.log(hashBtnTxt.innerText);
-	contractInstance.methods.notarize(item1).send({from: web3.eth.defaultAccount})
+	contractInstance.methods.notarize(hashBtnTxt.innerText)
+		.send({from: web3.eth.defaultAccount})
         .once('receipt', receipt => {
             if (receipt.events.notarizationSuccess.returnValues.success) {
 				span = document.createElement('SPAN')
@@ -229,25 +230,42 @@ storeBtn.addEventListener('click', async () => {
 				span.insertAdjacentElement('afterend', details)
 
 				
+				span.id = "storeorverifyresults"
+				span.innerText = `Notarization Successful!`
+				verifyBtn.insertAdjacentElement('afterend', span);
 
 				console.log('yeet')
             } else {
-                console.log('Something went wrong')
+                span = document.createElement('SPAN')
+				span.id = "storeorverifyresults"
+				span.innerText = `Something went wrong.`
+				verifyBtn.insertAdjacentElement('afterend', span);
             }
         })
 });
 
-// Option 2: Verify Possession
+// Step 3 - Option 2: Verify Possession
 
 
 verifyBtn.addEventListener('click', async () => {
-	contractInstance.methods.verifyPossession(hash)
+	storeBtn.hidden = true;
+	document.getElementById('or').hidden = true;
+	contractInstance.methods.verifyPossession(hashBtnTxt.innerText)
 		.send({from: web3.eth.defaultAccount})
         .once('receipt', receipt => {
             if (receipt.events.verificationSuccess.returnValues.success) {
-				console.log('verification successful');
+				span = document.createElement('SPAN')
+				span.id = "storeorverifyresults"
+				span.innerText = `Verification Successful!`
+				verifyDiv.insertAdjacentElement('afterend', span);
+				console.log('Verification successful');
+
 			} else {
-                console.log('Something went wrong')
+				span = document.createElement('SPAN');
+				span.id = "storeorverifyresults";
+				span.innerText = `Something went wrong.`;
+				verifyDiv.insertAdjacentElement('afterend', span);
+                console.log('Something went wrong');
             }
             //data = receipt; console.log(data)});
         })
